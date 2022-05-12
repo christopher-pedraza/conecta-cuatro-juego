@@ -40,7 +40,8 @@ def play(x, y):
     new_x, new_y = get_board_coordinates(x, y)
     print(new_x, new_y)
 
-def rectangulo (ix, iy, fx, fy, color):
+def rectangulo (ix, iy, fx, fy, _color):
+    color(_color)
     up()
     goto(ix,iy)
     down()
@@ -71,9 +72,27 @@ def dibujar_circulos():
     circulos(inicia_x, inicia_y, espacio,'white')
 
 
+def make_temp_lines():
+    color('white')
+    for i in range(COLS):
+        up()
+        goto(i+1, 0)
+        down()
+        goto(i+1, 8)
+
+    for i in range(ROWS):
+        up()
+        goto(0, i+1)
+        down()
+        goto(10, i+1)
+
 setup(800, 800, 370, 0)
 setworldcoordinates(-0.5,-0.5,COLS+0.5,ROWS+2.5)
+speed(100)
 dibujar_tablero()
 dibujar_circulos()
+
+make_temp_lines()
+
 onscreenclick(play)
 done()
