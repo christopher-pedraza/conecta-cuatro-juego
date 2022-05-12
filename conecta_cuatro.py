@@ -102,15 +102,17 @@ def dibujar_pieza(x, y, jugador):
 
 def poner_pieza(col, jugador):
     pieza_colocada = False
-    for position in range(ROWS):
-        if board[position][col] == 0:
-            board[position][col] = jugador
 
-            dibujar_pieza(col, position, jugador)
+    if col >= 0 and col < COLS:
+        for position in range(ROWS):
+            if board[position][col] == 0:
+                board[position][col] = jugador
 
-            return True
-        else:
-            pieza_colocada = False
+                dibujar_pieza(col, position, jugador)
+
+                return True
+            else:
+                pieza_colocada = False
 
     return pieza_colocada
 
@@ -137,7 +139,8 @@ def play(x, y):
 
 setup(800, 800, 370, 0)
 setworldcoordinates(-0.5,-0.5,COLS+0.5,ROWS+2.5)
-speed(100)
+hideturtle()
+tracer(False)
 dibujar_tablero()
 dibujar_circulos()
 crear_matriz_tablero()
