@@ -100,15 +100,19 @@ def dibujar_pieza(x, y, jugador):
     end_fill()
 
 
-def poner_pieza(col, row, jugador):
-    if board[row][col] == 0:
-        board[row][col] = jugador
+def poner_pieza(col, jugador):
+    pieza_colocada = False
+    for position in range(ROWS):
+        if board[position][col] == 0:
+            board[position][col] = jugador
 
-        dibujar_pieza(col, row, jugador)
+            dibujar_pieza(col, position, jugador)
 
-        return True
-    else:
-        return False
+            return True
+        else:
+            pieza_colocada = False
+
+    return pieza_colocada
 
 def set_turno(turno):
     global TURNO
@@ -124,7 +128,7 @@ def play(x, y):
 
     global TURNO
 
-    pieza_colocada = poner_pieza(board_x, board_y, TURNO)
+    pieza_colocada = poner_pieza(board_x, TURNO)
 
     if pieza_colocada:
         set_turno(TURNO)
