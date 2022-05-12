@@ -126,7 +126,6 @@ def set_turno(turno):
 
 def play(x, y):
     board_x, board_y = get_coordenadas_tablero(x, y)
-    print(board_x, board_y)
 
     global TURNO
 
@@ -135,7 +134,6 @@ def play(x, y):
     if pieza_colocada:
         set_turno(TURNO)
 
-    print(pieza_colocada, TURNO)
 
 setup(800, 800, 370, 0)
 setworldcoordinates(-0.5,-0.5,COLS+0.5,ROWS+2.5)
