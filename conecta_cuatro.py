@@ -15,8 +15,8 @@ ROWS = 8
 COLS = 10
 inicia_x = 0
 inicia_y = 0
-fin_x = 10
-fin_y = 8
+fin_x = COLS
+fin_y = ROWS
 
 espacio = 1
 
