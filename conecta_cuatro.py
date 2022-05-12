@@ -22,7 +22,9 @@ espacio = 1
 
 board = []
 
-def create_board_matrix():
+TURNO = 1
+
+def crear_matriz_tablero():
     tempRow = []
     for i in range(ROWS):
         for i in range(COLS):
@@ -31,14 +33,10 @@ def create_board_matrix():
         board.append(tempRow)
         tempRow = []
 
-def get_board_coordinates(x, y):
+def get_coordenadas_tablero(x, y):
     new_x = m.floor(x)
     new_y = m.floor(y)
     return new_x, new_y
-
-def play(x, y):
-    new_x, new_y = get_board_coordinates(x, y)
-    print(new_x, new_y)
 
 def rectangulo (ix, iy, fx, fy, _color):
     color(_color)
@@ -86,11 +84,41 @@ def make_temp_lines():
         down()
         goto(10, i+1)
 
+def poner_pieza(col, row, player):
+    if board[row][col] == 0:
+        board[row][col] = player
+
+        return True
+    else:
+        return False
+
+def set_turno(turno):
+    global TURNO
+    
+    if turno == 1:
+        TURNO = 2
+    else:
+        TURNO = 1
+
+def play(x, y):
+    board_x, board_y = get_coordenadas_tablero(x, y)
+    print(board_x, board_y)
+
+    global TURNO
+
+    pieza_colocada = poner_pieza(board_x, board_y, TURNO)
+
+    if pieza_colocada:
+        set_turno(TURNO)
+
+    print(pieza_colocada, TURNO)
+
 setup(800, 800, 370, 0)
 setworldcoordinates(-0.5,-0.5,COLS+0.5,ROWS+2.5)
 speed(100)
 dibujar_tablero()
 dibujar_circulos()
+crear_matriz_tablero()
 
 make_temp_lines()
 
