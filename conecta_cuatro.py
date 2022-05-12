@@ -7,6 +7,7 @@ Christopher Gabriel Pedraza Pohlenz, A01177767
 '''
 
 from turtle import *
+import math as m
 
 # Hacer tablero
 
@@ -18,6 +19,26 @@ fin_x = 10
 fin_y = 8
 
 espacio = 1
+
+board = []
+
+def create_board_matrix():
+    tempRow = []
+    for i in range(ROWS):
+        for i in range(COLS):
+            tempRow.append(0)
+
+        board.append(tempRow)
+        tempRow = []
+
+def get_board_coordinates(x, y):
+    new_x = m.floor(x)
+    new_y = m.floor(y)
+    return new_x, new_y
+
+def play(x, y):
+    new_x, new_y = get_board_coordinates(x, y)
+    print(new_x, new_y)
 
 def rectangulo (ix, iy, fx, fy, color):
     up()
@@ -54,4 +75,5 @@ setup(800, 800, 370, 0)
 setworldcoordinates(-0.5,-0.5,COLS+0.5,ROWS+2.5)
 dibujar_tablero()
 dibujar_circulos()
+onscreenclick(play)
 done()
