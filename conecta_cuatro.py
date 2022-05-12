@@ -1,11 +1,11 @@
 '''
 Juego de Conecta Cuatro
 
-<Nombre_1>, <Matrícula_1>
+<Kevin Susej Garza Aragon>, <A00833985>
 Eugenia Ruiz Velasco Olvera, A01177887
 Christopher Gabriel Pedraza Pohlenz, A01177767
 '''
-
+import turtle
 from turtle import *
 import math as m
 
@@ -25,6 +25,42 @@ board = []
 TURNO = 1
 
 RADIO_FICHAS = 0.4
+state = {'jugador 1': 0, 'jugador 2': 0, 'empate':0}
+score1 = turtle.Turtle(visible=False)
+score2 = turtle.Turtle(visible=False)
+score3 = turtle.Turtle(visible=False)
+titulo1 = turtle.Turtle(visible=False)
+titulo2 = turtle.Turtle(visible=False)
+titulo3 = turtle.Turtle(visible=False)
+
+def crear_marcador():
+    titulo1.color('cyan3')
+    titulo2.color('crimson')
+    titulo3.color('purple')
+    tracer(False)
+    score1.goto(2,9)
+    score2.goto(8,9)
+    score3.goto(5,9)
+    titulo1.goto(2,9.5)
+    titulo2.goto(8,9.5)
+    titulo3.goto(5,9.5)
+
+
+def write_scores(ganador):
+    if ganador == 0:
+        state['empate'] += 1
+    elif ganador == 1:
+        state['jugador 1'] += 1
+    elif ganador == 2:
+        state['jugador 2'] += 1
+    
+    score1.write(state ['jugador 1'], font=('Century Gothic',20,"bold"))
+    score2.write(state ['jugador 2'], font=('Century Gothic',20,"bold"))
+    score3.write(state ['empate'], font=('Century Gothic',20,"bold"))
+    
+    titulo1.write('Jugador 1', font=('Century Gothic',25,"bold"), align="center")
+    titulo2.write('Jugador 2', font=('Century Gothic',25,"bold"), align="center")
+    titulo3.write('Empate', font=('Century Gothic',25,"bold"), align="center", )
 
 def crear_matriz_tablero():
     tempRow = []
@@ -146,4 +182,6 @@ crear_matriz_tablero()
 make_temp_lines()
 
 onscreenclick(play)
+crear_marcador()   
+write_scores(1)
 done()
