@@ -24,6 +24,8 @@ board = []
 
 TURNO = 1
 
+RADIO_FICHAS = 0.4
+
 def crear_matriz_tablero():
     tempRow = []
     for i in range(ROWS):
@@ -84,9 +86,25 @@ def make_temp_lines():
         down()
         goto(10, i+1)
 
-def poner_pieza(col, row, player):
+def dibujar_pieza(x, y, jugador):
+    if jugador == 1:
+        color('crimson')
+    else:
+        color('cyan3')
+
+    up()
+    goto(x+0.5,y+(0.5-RADIO_FICHAS))
+    down()
+    begin_fill()
+    circle(RADIO_FICHAS)
+    end_fill()
+
+
+def poner_pieza(col, row, jugador):
     if board[row][col] == 0:
-        board[row][col] = player
+        board[row][col] = jugador
+
+        dibujar_pieza(col, row, jugador)
 
         return True
     else:
@@ -94,7 +112,7 @@ def poner_pieza(col, row, player):
 
 def set_turno(turno):
     global TURNO
-    
+
     if turno == 1:
         TURNO = 2
     else:
