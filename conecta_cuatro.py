@@ -26,6 +26,8 @@ TURNO = 1
 
 RADIO_FICHAS = 0.4
 
+LOCK = False
+
 
 def crear_matriz_tablero():
     tempRow = []
@@ -127,15 +129,73 @@ def set_turno(turno):
         TURNO = 1
 
 
+def determinar_victoria():
+    p1 = 0
+    p2 = 0
+
+    # Victoria horizontal
+    for row in board:
+        p1 = 0
+        p2 = 0
+        for col in row:
+            if col == 1:
+                p2 = 0
+                p1 += 1
+                if p1 == 4:
+                    return 1
+            elif col == 2:
+                p1 = 0
+                p2 += 1
+                if p2 == 4:
+                    return 2
+            else:
+                p1 = 0
+                p2 = 0
+
+    # Victoria vertical
+    for col in range(len(board[0])):
+        p1 = 0
+        p2 = 0
+
+        for row in range(len(board)):
+            if board[row][col] == 1:
+                p2 = 0
+                p1 += 1
+                if p1 == 4:
+                    return 1
+            elif board[row][col] == 2:
+                p1 = 0
+                p2 += 1
+                if p2 == 4:
+                    return 2
+            else:
+                p1 = 0
+                p2 = 0
+
+    return 0
+
+
+
 def play(x, y):
-    board_x, board_y = get_coordenadas_tablero(x, y)
-
     global TURNO
+    global LOCK
+    
+    if not LOCK:
+        board_x, board_y = get_coordenadas_tablero(x, y)
 
-    pieza_colocada = poner_pieza(board_x, TURNO)
+        pieza_colocada = poner_pieza(board_x, TURNO)
 
-    if pieza_colocada:
-        set_turno(TURNO)
+        if pieza_colocada:
+            set_turno(TURNO)
+
+        victoria = determinar_victoria()
+
+        if victoria == 1:
+            print("El jugador 1 ganó")
+            LOCK = True
+        elif victoria == 2:
+            print("El jugador 2 ganó")
+            LOCK = True
 
 
 setup(800, 800, 370, 0)
