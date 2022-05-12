@@ -62,6 +62,7 @@ def write_scores(ganador):
     titulo2.write('Jugador 2', font=('Century Gothic',25,"bold"), align="center")
     titulo3.write('Empate', font=('Century Gothic',25,"bold"), align="center", )
 
+
 def crear_matriz_tablero():
     tempRow = []
     for i in range(ROWS):
@@ -71,10 +72,12 @@ def crear_matriz_tablero():
         board.append(tempRow)
         tempRow = []
 
+
 def get_coordenadas_tablero(x, y):
     new_x = m.floor(x)
     new_y = m.floor(y)
     return new_x, new_y
+
 
 def rectangulo (ix, iy, fx, fy, _color):
     color(_color)
@@ -94,18 +97,15 @@ def rectangulo (ix, iy, fx, fy, _color):
 def dibujar_tablero():
     rectangulo(inicia_x, inicia_y, fin_x, fin_y,'light blue')
 
-
-def circulos(x, y, e, color):
-    up()
-    goto(x, y-e)
-    seth(0)
-    down()
-    begin_fill()
-    circle(x-y)
-    end_fill()
-
-def dibujar_circulos():
-    circulos(inicia_x, inicia_y, espacio,'white')
+    color('white')
+    for x in range(COLS):
+        for y in range(ROWS):
+            up()
+            goto(x+0.5,y+(0.5-RADIO_FICHAS))
+            down()
+            begin_fill()
+            circle(RADIO_FICHAS, 360, 150)
+            end_fill()
 
 
 def make_temp_lines():
@@ -122,6 +122,7 @@ def make_temp_lines():
         down()
         goto(10, i+1)
 
+
 def dibujar_pieza(x, y, jugador):
     if jugador == 1:
         color('crimson')
@@ -132,7 +133,7 @@ def dibujar_pieza(x, y, jugador):
     goto(x+0.5,y+(0.5-RADIO_FICHAS))
     down()
     begin_fill()
-    circle(RADIO_FICHAS)
+    circle(RADIO_FICHAS, 360, 150)
     end_fill()
 
 
@@ -152,6 +153,7 @@ def poner_pieza(col, jugador):
 
     return pieza_colocada
 
+
 def set_turno(turno):
     global TURNO
 
@@ -159,6 +161,7 @@ def set_turno(turno):
         TURNO = 2
     else:
         TURNO = 1
+
 
 def play(x, y):
     board_x, board_y = get_coordenadas_tablero(x, y)
@@ -176,7 +179,6 @@ setworldcoordinates(-0.5,-0.5,COLS+0.5,ROWS+2.5)
 hideturtle()
 tracer(False)
 dibujar_tablero()
-dibujar_circulos()
 crear_matriz_tablero()
 
 make_temp_lines()
