@@ -149,6 +149,28 @@ def poner_pieza(col, jugador):
     return pieza_colocada
 
 
+def cambiar_indicador_turno(turno):
+    indicador_turno.clear()
+    indicador_turno.up() # deja de dibujar
+
+    if turno == 1:
+        indicador_turno.goto(1.95, 8.5) # mueve el puntero a la pos inicial
+    else:
+        indicador_turno.goto(7.95, 8.5) # mueve el puntero a la pos inicial
+
+    indicador_turno.down() # empieza a dibujar nuevamente
+    indicador_turno.begin_fill() # comienza a rellenar la figura
+
+    # ciclo por cada uno de los 3 lados del triángulo
+    for count in range(3):
+        # Se mueve una cantidad al frente y gira 120 grados para hacer un triángulo equilatero
+        indicador_turno.forward(0.3)
+        indicador_turno.left(120)
+
+    # deja de rellenar la figura
+    indicador_turno.end_fill()
+
+
 def set_turno(turno):
     global TURNO
 
@@ -156,6 +178,8 @@ def set_turno(turno):
         TURNO = 2
     else:
         TURNO = 1
+
+    cambiar_indicador_turno(TURNO)
 
 
 def determinar_victoria():
@@ -213,6 +237,7 @@ def restaurar_juego():
     dibujar_tablero()
     make_temp_lines()
     crear_matriz_tablero()
+    cambiar_indicador_turno(1)
 
 
 def play(x, y):
@@ -260,8 +285,11 @@ titulo1 = turtle.Turtle(visible=False)
 titulo2 = turtle.Turtle(visible=False)
 titulo3 = turtle.Turtle(visible=False)
 
+indicador_turno = turtle.Turtle(visible=False)
+
 crear_marcador()
 cambiar_marcador(-1)
+cambiar_indicador_turno(1)
 
 onscreenclick(play)
    
