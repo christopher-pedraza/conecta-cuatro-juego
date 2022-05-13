@@ -20,3 +20,7 @@ Si el tablero se llena con las 80 fichas, 40 de cada jugador, y ninguno logra co
 * No se puede cambiar la posición de la ficha. Una vez seleccionada, no se puede revertir la decisión.
 * Se considera victoria al colocar cuatro fichas juntas del mismo color, es decir, del mismo jugador. Pueden ser vertical, horizontal o en diagonal. 
 * Se considera empate cuando el tablero se llene con las fichas de ambos jugadores y no se haya logrado ninguna secuencia de 4 fichas del mismo jugador, vertical, horizontal o en diagonal.
+
+
+https://user-images.githubusercontent.com/62347713/168339412-4e7ea89f-0f69-4656-8692-ae149316fc15.mp4
+
