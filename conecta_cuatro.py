@@ -26,18 +26,12 @@ TURNO = 1
 
 RADIO_FICHAS = 0.4
 state = {'jugador 1': 0, 'jugador 2': 0, 'empate':0}
-score1 = turtle.Turtle(visible=False)
-score2 = turtle.Turtle(visible=False)
-score3 = turtle.Turtle(visible=False)
-titulo1 = turtle.Turtle(visible=False)
-titulo2 = turtle.Turtle(visible=False)
-titulo3 = turtle.Turtle(visible=False)
+
 
 def crear_marcador():
-    titulo1.color('cyan3')
-    titulo2.color('crimson')
+    titulo1.color('crimson')
+    titulo2.color('cyan3')
     titulo3.color('purple')
-    tracer(False)
     score1.goto(2,9)
     score2.goto(8,9)
     score3.goto(5,9)
@@ -46,7 +40,7 @@ def crear_marcador():
     titulo3.goto(5,9.5)
 
 
-def write_scores(ganador):
+def cambiar_marcador(ganador):
     if ganador == 0:
         state['empate'] += 1
     elif ganador == 1:
@@ -228,9 +222,11 @@ def play(x, y):
 
         if victoria == 1:
             print("El jugador 1 ganó")
+            cambiar_marcador(1)
             LOCK = True
         elif victoria == 2:
             print("El jugador 2 ganó")
+            cambiar_marcador(2)
             LOCK = True
 
 
@@ -240,10 +236,18 @@ hideturtle()
 tracer(False)
 dibujar_tablero()
 crear_matriz_tablero()
-
 make_temp_lines()
 
+score1 = turtle.Turtle(visible=False)
+score2 = turtle.Turtle(visible=False)
+score3 = turtle.Turtle(visible=False)
+titulo1 = turtle.Turtle(visible=False)
+titulo2 = turtle.Turtle(visible=False)
+titulo3 = turtle.Turtle(visible=False)
+
+crear_marcador()
+cambiar_marcador(-1)
+
 onscreenclick(play)
-crear_marcador()   
-write_scores(1)
+   
 done()
