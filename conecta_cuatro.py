@@ -41,6 +41,7 @@ def crear_marcador():
 
 
 def cambiar_marcador(ganador):
+    
     if ganador == 0:
         state['empate'] += 1
     elif ganador == 1:
@@ -48,6 +49,9 @@ def cambiar_marcador(ganador):
     elif ganador == 2:
         state['jugador 2'] += 1
     
+    score1.clear()
+    score2.clear()
+    score3.clear()
     score1.write(state ['jugador 1'], font=('Century Gothic',20,"bold"))
     score2.write(state ['jugador 2'], font=('Century Gothic',20,"bold"))
     score3.write(state ['empate'], font=('Century Gothic',20,"bold"))
@@ -57,6 +61,7 @@ def cambiar_marcador(ganador):
     titulo3.write('Empate', font=('Century Gothic',25,"bold"), align="center", )
 
 LOCK = False
+
 
 
 def crear_matriz_tablero():
