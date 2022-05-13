@@ -222,9 +222,11 @@ def play(x, y):
 
         if victoria == 1:
             print("El jugador 1 ganó")
+            cambiar_marcador(1)
             LOCK = True
         elif victoria == 2:
             print("El jugador 2 ganó")
+            cambiar_marcador(2)
             LOCK = True
 
 
@@ -244,8 +246,8 @@ titulo2 = turtle.Turtle(visible=False)
 titulo3 = turtle.Turtle(visible=False)
 
 crear_marcador()
+cambiar_marcador(-1)
 
 onscreenclick(play)
    
-cambiar_marcador(1)
 done()
