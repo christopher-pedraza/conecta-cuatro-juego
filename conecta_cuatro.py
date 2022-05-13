@@ -29,8 +29,8 @@ state = {'jugador 1': 0, 'jugador 2': 0, 'empate':0}
 
 
 def crear_marcador():
-    titulo1.color('cyan3')
-    titulo2.color('crimson')
+    titulo1.color('crimson')
+    titulo2.color('cyan3')
     titulo3.color('purple')
     score1.goto(2,9)
     score2.goto(8,9)
