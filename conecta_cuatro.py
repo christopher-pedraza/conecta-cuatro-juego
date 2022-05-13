@@ -201,6 +201,24 @@ def determinar_victoria_2():
                 return P2
 
 
+def tablero_lleno():
+    for row in board:
+        for col in row:
+            if col == 0:
+                return False
+    return True
+
+
+def restaurar_juego():
+    global TURNO
+    global board
+    TURNO = 1
+    board = []
+
+    clear()
+    dibujar_tablero()
+    make_temp_lines()
+    crear_matriz_tablero()
 
 
 def play(x, y):
@@ -217,15 +235,23 @@ def play(x, y):
 
         #victoria = determinar_victoria()
         victoria = determinar_victoria_2()
+        lleno = tablero_lleno()
 
         if victoria == 1:
             print("El jugador 1 ganó")
             cambiar_marcador(1)
-            LOCK = True
+            textinput("¿Continuar?", "Presiona <Enter> para continuar")
+            restaurar_juego()
         elif victoria == 2:
             print("El jugador 2 ganó")
             cambiar_marcador(2)
-            LOCK = True
+            textinput("¿Continuar?", "Presiona <Enter> para continuar")
+            restaurar_juego()
+        elif lleno:
+            print("Empate")
+            cambiar_marcador(0)
+            textinput("¿Continuar?", "Presiona <Enter> para continuar")
+            restaurar_juego()
 
 
 setup(800, 800, 370, 0)
