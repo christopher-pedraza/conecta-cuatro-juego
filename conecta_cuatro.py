@@ -9,7 +9,6 @@ import turtle
 from turtle import *
 import math as m
 
-# Hacer tablero
 
 ROWS = 8
 COLS = 10
@@ -18,13 +17,12 @@ inicia_y = 0
 fin_x = COLS
 fin_y = ROWS
 
-espacio = 1
+RADIO_FICHAS = 0.4
 
 board = []
 
 TURNO = 1
 
-RADIO_FICHAS = 0.4
 state = {'jugador 1': 0, 'jugador 2': 0, 'empate':0}
 
 
@@ -41,7 +39,6 @@ def crear_marcador():
 
 
 def cambiar_marcador(ganador):
-    
     if ganador == 0:
         state['empate'] += 1
     elif ganador == 1:
@@ -59,9 +56,6 @@ def cambiar_marcador(ganador):
     titulo1.write('Jugador 1', font=('Century Gothic',25,"bold"), align="center")
     titulo2.write('Jugador 2', font=('Century Gothic',25,"bold"), align="center")
     titulo3.write('Empate', font=('Century Gothic',25,"bold"), align="center", )
-
-LOCK = False
-
 
 
 def crear_matriz_tablero():
@@ -164,11 +158,11 @@ def set_turno(turno):
         TURNO = 1
 
 
-def determinar_victoria_2():
+def determinar_victoria():
     P1 = 1
     P2 = 2
 
-    # Checar la horizontal
+    # Determinar victoria horizontal
     for c in range(COLS-3):
         for r in range(ROWS):
             if board[r][c] == P1 and board[r][c+1] == P1 and board[r][c+2] == P1 and board[r][c+3] == P1:
@@ -176,7 +170,7 @@ def determinar_victoria_2():
             elif board[r][c] == P2 and board[r][c+1] == P2 and board[r][c+2] == P2 and board[r][c+3] == P2:
                 return P2
             
-    # Checar la vertical
+    # Determinar victoria vertical
     for c in range(COLS):
         for r in range(ROWS-3):
             if board[r][c] == P1 and board[r+1][c] == P1 and board[r+2][c] == P1 and board[r+3][c] == P1:
@@ -184,7 +178,7 @@ def determinar_victoria_2():
             elif board[r][c] == P2 and board[r+1][c] == P2 and board[r+2][c] == P2 and board[r+3][c] == P2:
                 return P2
             
-    # Checar la diagonal /
+    # Determinar victoria diagonal /
     for c in range(COLS-3):
         for r in range(ROWS-3):
             if board[r][c] == P1 and board[r+1][c+1] == P1 and board[r+2][c+2] == P1 and board[r+3][c+3] == P1:
@@ -192,7 +186,7 @@ def determinar_victoria_2():
             elif board[r][c] == P2 and board[r+1][c+1] == P2 and board[r+2][c+2] == P2 and board[r+3][c+3] == P2:
                 return P2
 
-    # Checar la diagonal \
+    # Determinar victoria diagonal \
     for c in range(COLS-3):
         for r in range(3, ROWS):
             if board[r][c] == P1 and board[r-1][c+1] == P1 and board[r-2][c+2] == P1 and board[r-3][c+3] == P1:
@@ -223,35 +217,32 @@ def restaurar_juego():
 
 def play(x, y):
     global TURNO
-    global LOCK
-    
-    if not LOCK:
-        board_x, board_y = get_coordenadas_tablero(x, y)
 
-        pieza_colocada = poner_pieza(board_x, TURNO)
+    board_x, board_y = get_coordenadas_tablero(x, y)
 
-        if pieza_colocada:
-            set_turno(TURNO)
+    pieza_colocada = poner_pieza(board_x, TURNO)
 
-        #victoria = determinar_victoria()
-        victoria = determinar_victoria_2()
-        lleno = tablero_lleno()
+    if pieza_colocada:
+        set_turno(TURNO)
 
-        if victoria == 1:
-            print("El jugador 1 ganó")
-            cambiar_marcador(1)
-            textinput("¿Continuar?", "Presiona <Enter> para continuar")
-            restaurar_juego()
-        elif victoria == 2:
-            print("El jugador 2 ganó")
-            cambiar_marcador(2)
-            textinput("¿Continuar?", "Presiona <Enter> para continuar")
-            restaurar_juego()
-        elif lleno:
-            print("Empate")
-            cambiar_marcador(0)
-            textinput("¿Continuar?", "Presiona <Enter> para continuar")
-            restaurar_juego()
+    victoria = determinar_victoria()
+    lleno = tablero_lleno()
+
+    if victoria == 1:
+        print("El jugador 1 ganó")
+        cambiar_marcador(1)
+        textinput("¿Continuar?", "Presiona <Enter> para continuar")
+        restaurar_juego()
+    elif victoria == 2:
+        print("El jugador 2 ganó")
+        cambiar_marcador(2)
+        textinput("¿Continuar?", "Presiona <Enter> para continuar")
+        restaurar_juego()
+    elif lleno:
+        print("Empate")
+        cambiar_marcador(0)
+        textinput("¿Continuar?", "Presiona <Enter> para continuar")
+        restaurar_juego()
 
 
 setup(800, 800, 370, 0)
