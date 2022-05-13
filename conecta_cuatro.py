@@ -164,50 +164,42 @@ def set_turno(turno):
         TURNO = 1
 
 
-def determinar_victoria():
-    p1 = 0
-    p2 = 0
+def determinar_victoria_2():
+    P1 = 1
+    P2 = 2
 
-    # Victoria horizontal
-    for row in board:
-        p1 = 0
-        p2 = 0
-        for col in row:
-            if col == 1:
-                p2 = 0
-                p1 += 1
-                if p1 == 4:
-                    return 1
-            elif col == 2:
-                p1 = 0
-                p2 += 1
-                if p2 == 4:
-                    return 2
-            else:
-                p1 = 0
-                p2 = 0
+    # Checar la horizontal
+    for c in range(COLS-3):
+        for r in range(ROWS):
+            if board[r][c] == P1 and board[r][c+1] == P1 and board[r][c+2] == P1 and board[r][c+3] == P1:
+                return P1
+            elif board[r][c] == P2 and board[r][c+1] == P2 and board[r][c+2] == P2 and board[r][c+3] == P2:
+                return P2
+            
+    # Checar la vertical
+    for c in range(COLS):
+        for r in range(ROWS-3):
+            if board[r][c] == P1 and board[r+1][c] == P1 and board[r+2][c] == P1 and board[r+3][c] == P1:
+                return P1
+            elif board[r][c] == P2 and board[r+1][c] == P2 and board[r+2][c] == P2 and board[r+3][c] == P2:
+                return P2
+            
+    # Checar la diagonal /
+    for c in range(COLS-3):
+        for r in range(ROWS-3):
+            if board[r][c] == P1 and board[r+1][c+1] == P1 and board[r+2][c+2] == P1 and board[r+3][c+3] == P1:
+                return P1
+            elif board[r][c] == P2 and board[r+1][c+1] == P2 and board[r+2][c+2] == P2 and board[r+3][c+3] == P2:
+                return P2
 
-    # Victoria vertical
-    for col in range(len(board[0])):
-        p1 = 0
-        p2 = 0
+    # Checar la diagonal \
+    for c in range(COLS-3):
+        for r in range(3, ROWS):
+            if board[r][c] == P1 and board[r-1][c+1] == P1 and board[r-2][c+2] == P1 and board[r-3][c+3] == P1:
+                return P1
+            elif board[r][c] == P2 and board[r-1][c+1] == P2 and board[r-2][c+2] == P2 and board[r-3][c+3] == P2:
+                return P2
 
-        for row in range(len(board)):
-            if board[row][col] == 1:
-                p2 = 0
-                p1 += 1
-                if p1 == 4:
-                    return 1
-            elif board[row][col] == 2:
-                p1 = 0
-                p2 += 1
-                if p2 == 4:
-                    return 2
-            else:
-                p1 = 0
-                p2 = 0
-
-    return 0
 
 
 
@@ -223,7 +215,8 @@ def play(x, y):
         if pieza_colocada:
             set_turno(TURNO)
 
-        victoria = determinar_victoria()
+        #victoria = determinar_victoria()
+        victoria = determinar_victoria_2()
 
         if victoria == 1:
             print("El jugador 1 ganó")
